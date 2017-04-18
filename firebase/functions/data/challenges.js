@@ -26,5 +26,21 @@ exports.createChallenge = body => {
       }
     })
     .then(() => deferred.resolve(newChallengeRef));
+    
+  return deferred.promise;
+};
+
+exports.updateChallenge = (challengeKey, body) => {
+  const deferred = q.defer();
+  const challengeRef = database().child(`challenges/${challengeKey}`);
+
+  challengeRef
+    .update(body, err => {
+      if (err) {
+        deferred.reject(new Error(err));
+      }
+    })
+    .then(() => deferred.resolve(challengeRef));
+
   return deferred.promise;
 };
