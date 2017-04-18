@@ -11,4 +11,5 @@ deployment:
     branch: master
     commands:
       - cd firebase
+      - ls
       - firebase deploy --token "$FIREBASE_DEPLOY_TOKEN" --non-interactive
