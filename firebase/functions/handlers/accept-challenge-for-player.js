@@ -11,7 +11,7 @@ module.exports = ({ req, res }) => {
   })
     .then(challengeRef => {
       const playerAcceptedRef = challengeRef.child(`players/${playerKey}/hasPlayerAccepted`)
-      playerAcceptedRef.set(true, err => {
+      return playerAcceptedRef.set(true, err => {
         if (err) {
           throw new Error(err);
         }
