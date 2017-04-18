@@ -10,6 +10,4 @@ deployment:
   production:
     branch: master
     commands:
-      - cd firebase/
-      - ls
-      - firebase deploy --token "$FIREBASE_DEPLOY_TOKEN" --non-interactive
+      - cd firebase && firebase deploy --token "$FIREBASE_DEPLOY_TOKEN" --non-interactive
