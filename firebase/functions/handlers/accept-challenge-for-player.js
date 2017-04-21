@@ -10,12 +10,14 @@ module.exports = ({ req, res }) => {
     status: 'active'
   })
     .then(challengeRef => {
-      const playerAcceptedRef = challengeRef.child(`players/${playerKey}/hasPlayerAccepted`)
+      const playerAcceptedRef = challengeRef.child(
+        `players/${playerKey}/hasPlayerAccepted`
+      );
       return playerAcceptedRef.set(true, err => {
         if (err) {
           throw new Error(err);
         }
-      })
+      });
     })
     .then(() => {
       // Update player (remove pending challenge, append active challenge)

@@ -25,4 +25,4 @@ module.exports = ({ req, res }) => {
     .then(() => {
       res.send({});
     });
-}
+};

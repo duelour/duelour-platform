@@ -6,7 +6,10 @@ exports.createChallenge = body => {
   const { creator, players } = body;
 
   if (!players || players.length === 0) {
-    throw new Error('Must have at least one player to create a challenge!');
+    deferred.reject(
+      new Error('Must have at least one player to create a challenge!')
+    );
+    return deferred.promise;
   }
 
   const newChallengeRef = database().child('challenges').push();
@@ -25,8 +28,9 @@ exports.createChallenge = body => {
         deferred.reject(new Error(err));
       }
     })
-    .then(() => deferred.resolve(newChallengeRef));
-    
+    .then(() => deferred.resolve(newChallengeRef))
+    .catch(err => deferred.reject(new Error(err)));
+
   return deferred.promise;
 };
 
@@ -40,7 +44,8 @@ exports.updateChallenge = (challengeKey, body) => {
         deferred.reject(new Error(err));
       }
     })
-    .then(() => deferred.resolve(challengeRef));
+    .then(() => deferred.resolve(challengeRef))
+    .catch(err => deferred.reject(new Error(err)));
 
   return deferred.promise;
 };

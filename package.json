@@ -2,7 +2,8 @@
   "name": "duelour-platform",
   "version": "0.0.1",
   "scripts": {
-    "test": "echo 'No tests yet!'"
+    "lint": "xo",
+    "test": "npm run lint && jest"
   },
   "repository": {
     "type": "git",
@@ -24,9 +25,17 @@
         "error",
         "always"
       ]
-    }
+    },
+    "globals": [
+      "jest",
+      "describe",
+      "it",
+      "expect",
+      "jasmine"
+    ]
   },
-  "dependencies": {
+  "devDependencies": {
+    "jest": "^19.0.2",
     "eslint-config-prettier": "^1.6.0",
     "xo": "^0.18.1"
   }
