@@ -1,13 +1,25 @@
 const acceptChallengeForPlayer = require('../accept-challenge-for-player');
-const { database } = require('../../data/firebase');
 const { updateChallenge } = require('../../data/challenges');
 
+jest.mock('../../data/challenges', () => ({
+  updateChallenge: jest
+    .fn()
+    .mockReturnValue(new Promise(resolve => resolve('mockData')))
+}));
+
 describe('acceptChallengeForPlayer', () => {
-  it('should call updateChallenge');
+  it('should call updateChallenge', () => {
+    const req = {
+      body: {
+        challengeKey: 'mockChallengeKey',
+        playerKey: 'mockPlayerKey'
+      }
+    };
 
-  it('should accept challenge for player');
+    acceptChallengeForPlayer({ req });
 
-  it('should remove the pending challenge');
-
-  it('should append an active challenge');
+    expect(updateChallenge).toBeCalledWith('mockChallengeKey', {
+      status: 'active'
+    });
+  });
 });

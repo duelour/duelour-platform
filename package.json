@@ -35,8 +35,11 @@
     ]
   },
   "devDependencies": {
-    "jest": "^19.0.2",
     "eslint-config-prettier": "^1.6.0",
+    "jest": "^19.0.2",
     "xo": "^0.18.1"
+  },
+  "dependencies": {
+    "global": "^4.3.2"
   }
 }

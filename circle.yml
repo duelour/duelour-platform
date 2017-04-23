@@ -6,6 +6,7 @@ machine:
 dependencies:
   pre:
     - npm install firebase-tools -g
+    - cd firebase/functions && npm install
 deployment:
   production:
     branch: master
