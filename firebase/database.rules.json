@@ -12,6 +12,9 @@
           "displayName",
           "uid"
         ]
+      },
+      "challenges": {
+        ".read": true
       }
     }
   }

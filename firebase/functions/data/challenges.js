@@ -15,7 +15,13 @@ exports.createChallenge = body => {
   const newChallengeRef = database().child('challenges').push();
   const challengePlayers = players.reduce((res, player) => {
     const hasPlayerAccepted = player.key === creator;
-    res[player.key] = Object.assign({}, player, { hasPlayerAccepted });
+    res[player.key] = Object.assign({}, player, { 
+      hasPlayerAccepted,
+      totalWins: 0,
+      totalLosses: 0,
+      totalDraws: 0,
+      totalScore: 0
+    });
     return res;
   }, {});
   const challengeBody = Object.assign({}, body, {
