@@ -3,6 +3,7 @@ const { setPlayerWithPriority } = require('../data/players');
 
 module.exports = ({ req, res }) => {
   const { challengeDisplayName, players, creator } = req.body;
+  let challengeKey;
 
   createChallenge({
     created: new Date().getTime(),
@@ -12,6 +13,7 @@ module.exports = ({ req, res }) => {
     status: 'pending'
   })
     .then(challenge => {
+      challengeKey = challenge.key;
       const requests = players.map(player => {
         const challengeChild = player.key === creator ? 'active' : 'pending';
         return setPlayerWithPriority(
@@ -23,6 +25,6 @@ module.exports = ({ req, res }) => {
       return Promise.all(requests);
     })
     .then(() => {
-      res.send({});
+      res.send({ key: challengeKey });
     });
 };

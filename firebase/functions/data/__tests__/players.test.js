@@ -26,7 +26,7 @@ describe('setPlayerWithPriority', () => {
 
   it('should throw an error if body not provided', () => {
     setPlayerWithPriority('mockPlayerKey', 'mockPath').catch(err => {
-      expect(err.message).toBe('path not provided!');
+      expect(err.message).toBe('body not provided!');
     });
   });
 

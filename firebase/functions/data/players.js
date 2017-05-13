@@ -1,5 +1,3 @@
-const q = require('q');
-
 const { database } = require('./firebase');
 
 exports.setPlayerWithPriority = (
@@ -8,30 +6,28 @@ exports.setPlayerWithPriority = (
   body,
   priority = 0 - Date.now()
 ) => {
-  const deferred = q.defer();
+  return new Promise((resolve, reject) => {
+    if (!playerKey) {
+      reject(new Error('playerKey not provided!'));
+      return null;
+    }
+    if (!path) {
+      reject(new Error('path not provided!'));
+      return null;
+    }
+    if (!body) {
+      reject(new Error('body not provided!'));
+      return null;
+    }
 
-  if (!playerKey) {
-    deferred.reject(new Error('playerKey not provided!'));
-    return deferred.promise;
-  }
-  if (!path) {
-    deferred.reject(new Error('path not provided!'));
-    return deferred.promise;
-  }
-  if (!body) {
-    deferred.reject(new Error('body not provided!'));
-    return deferred.promise;
-  }
-
-  database()
-    .child(`players/${playerKey}/${path}`)
-    .setWithPriority(body, priority, err => {
-      if (err) {
-        deferred.reject(new Error(err));
-      }
-    })
-    .then(() => deferred.resolve({}))
-    .catch(err => deferred.reject(err));
-
-  return deferred.promise;
+    database()
+      .child(`players/${playerKey}/${path}`)
+      .setWithPriority(body, priority, err => {
+        if (err) {
+          reject(new Error(err));
+        }
+      })
+      .then(() => resolve({}))
+      .catch(err => reject(err));
+  });
 };

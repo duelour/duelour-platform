@@ -30,7 +30,7 @@ describe('createChallenge', () => {
     const body = {};
 
     createChallenge(body).catch(err => {
-      expect(err).toBe('Must have at least one player to create a challenge!');
+      expect(err).toEqual(new Error('Must have at least one player to create a challenge!'));
     });
   });
 
@@ -57,12 +57,20 @@ describe('createChallenge', () => {
             mockPlayerKey1: {
               displayName: 'mockDisplayName1',
               hasPlayerAccepted: false,
-              key: 'mockPlayerKey1'
+              key: 'mockPlayerKey1',
+              totalLosses: 0,
+              totalWins: 0,
+              totalDraws: 0,
+              totalScore: 0
             },
             mockPlayerKey2: {
               displayName: 'mockDisplayName2',
               hasPlayerAccepted: true,
-              key: 'mockPlayerKey2'
+              key: 'mockPlayerKey2',
+              totalLosses: 0,
+              totalWins: 0,
+              totalDraws: 0,
+              totalScore: 0
             }
           }
         }, jasmine.any(Function));
